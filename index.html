@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Data & Reporting Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0d0d0b;
+  --bg2:#141412;
+  --bg3:#1c1c19;
+  --line:#2a2a26;
+  --ink:#f0ede6;
+  --ink2:#9a9890;
+  --ink3:#7a7a72;
+  --accent:#4ade9a;
+  --accent2:#1a5c3a;
+  --accent3:#0d3320;
+  --amber:#f5c842;
+  --red:#ff6b5b;
+  --r:10px;
+  --nav-bg:rgba(13,13,11,.88);
+  --modal-bg:rgba(0,0,0,.75);
+  --tag-ai-bg:#1a1a2e;
+  --tag-ai-border:#3a3a6a;
+  --tag-ai-color:#a78bfa;
+}
+
+html.light{
+  --bg:#fdf8ee;
+  --bg2:#fffdf7;
+  --bg3:#f5efdf;
+  --line:#e8e0cc;
+  --ink:#1e1c18;
+  --ink2:#4a4640;
+  --ink3:#9a9080;
+  --accent:#1a6b8a;
+  --accent2:#a8d4e8;
+  --accent3:#e6f4fa;
+  --amber:#8a6200;
+  --red:#c0392b;
+  --nav-bg:rgba(253,248,238,.92);
+  --modal-bg:rgba(30,28,24,.55);
+  --tag-ai-bg:#f0ebff;
+  --tag-ai-border:#c4b5fd;
+  --tag-ai-color:#5b21b6;
+}
+
+/* theme toggle */
+.theme-toggle{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);background:transparent;border:1px solid var(--line);padding:3px 10px;border-radius:2px;letter-spacing:.08em;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.theme-toggle:hover{border-color:var(--ink3);color:var(--ink)}
+
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 2.5rem;height:60px;border-bottom:1px solid var(--line);background:var(--nav-bg);backdrop-filter:blur(12px)}
+.nav-left{display:flex;align-items:center}
+.nav-center{display:flex;gap:2rem;list-style:none;justify-content:center}
+.nav-right{display:flex;gap:.5rem;align-items:center;justify-content:flex-end}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-lang{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);border:1px solid var(--accent2);padding:3px 10px;border-radius:2px;letter-spacing:.08em}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 5rem;position:relative;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:.35}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(74,222,154,.06) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--accent)}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,9vw,7rem);font-weight:800;line-height:.95;letter-spacing:-.03em;color:var(--ink);margin-bottom:1rem}
+.hero-name .accent{color:var(--accent);display:block}
+.hero-ko{font-family:'Noto Sans KR',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;color:var(--ink3);letter-spacing:.05em;margin-bottom:2.5rem}
+.hero-desc{max-width:520px;font-size:15px;color:var(--ink2);line-height:1.9;margin-bottom:3rem}
+.hero-stats{display:flex;gap:3rem;margin-bottom:3rem}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--ink);line-height:1}
+.stat-label{font-size:11px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:.25rem}
+.stat-ko{font-size:10px;color:var(--ink3);margin-top:2px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:var(--r);transition:all .2s;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--bg);border:1.5px solid var(--accent)}
+.btn-primary:hover{background:#3dc885;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-outline:hover{border-color:var(--ink2)}
+.hero-scroll{position:absolute;bottom:2.5rem;right:3rem;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;writing-mode:vertical-rl;display:flex;align-items:center;gap:.75rem}
+.hero-scroll::after{content:'';width:1px;height:40px;background:var(--ink3)}
+
+/* ── SECTION COMMON ── */
+section{padding:6rem 3rem;max-width:1100px;margin:0 auto}
+.sec-label{display:flex;align-items:center;gap:1rem;margin-bottom:3.5rem}
+.sec-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em}
+.sec-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.02em}
+.sec-title-ko{font-family:'Noto Sans KR',sans-serif;font-size:.85rem;font-weight:300;color:var(--ink3);margin-left:.5rem}
+.full-rule{width:100%;height:1px;background:var(--line);margin-bottom:3.5rem}
+
+/* ── ABOUT ── */
+#about{border-top:1px solid var(--line)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text{font-size:15px;color:var(--ink2);line-height:1.95}
+.about-text strong{color:var(--ink);font-weight:500}
+.about-text p+p{margin-top:1.25rem}
+.about-right{}
+.skill-group{margin-bottom:2rem}
+.skill-group-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{font-size:12px;padding:.35rem .85rem;border-radius:20px;font-weight:500;letter-spacing:.02em;border:1px solid var(--line);color:var(--ink2);background:var(--bg2)}
+.tag.hi{background:var(--accent3);border-color:var(--accent2);color:var(--accent)}
+.tag.ai{background:var(--tag-ai-bg);border-color:var(--tag-ai-border);color:var(--tag-ai-color)}
+.itag{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:.35rem .85rem;border-radius:20px;font-weight:500;letter-spacing:.02em;border:1px solid var(--line);color:var(--ink2);background:var(--bg2)}
+.itag i{font-size:13px}
+.itag.hi{background:var(--accent3);border-color:var(--accent2);color:var(--accent)}
+.itag.hi i{color:var(--accent)}
+.itag.ai{background:var(--tag-ai-bg);border-color:var(--tag-ai-border);color:var(--tag-ai-color)}
+.itag.ai i{color:var(--tag-ai-color)}
+.lang-badges{display:flex;gap:1rem;margin-top:2rem}
+.lang-badge{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:1.25rem;display:flex;flex-direction:column;gap:.5rem}
+.lang-badge.active{border-color:var(--accent2);background:var(--accent3)}
+.lang-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink)}
+.lang-level{font-size:11px;color:var(--ink3)}
+.lang-level span{color:var(--accent);font-weight:500}
+.lang-ko{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink3);font-weight:300}
+
+/* ── PROJECTS ── */
+#projects{border-top:1px solid var(--line)}
+.projects-intro{font-size:14px;color:var(--ink3);max-width:520px;margin-bottom:3rem;line-height:1.8}
+.project-featured{background:var(--bg2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:2rem;transition:border-color .3s}
+.project-featured:hover{border-color:var(--accent2)}
+.proj-img{background:var(--bg3);border-bottom:1px solid var(--line);height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.proj-img-placeholder{text-align:center}
+.proj-img-icon{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.1em;border:1px dashed var(--line);padding:1rem 2rem;border-radius:var(--r)}
+.proj-img-hint{font-size:11px;color:var(--ink3);margin-top:.75rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+/* mock mini-dashboard inside placeholder */
+.mock-dash{position:absolute;inset:0;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;opacity:.35}
+.mock-row{display:flex;gap:.75rem}
+.mock-card{background:var(--bg);border:1px solid var(--line);border-radius:4px;flex:1;padding:.75rem;display:flex;flex-direction:column;gap:.4rem}
+.mock-card-label{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ink3);letter-spacing:.08em}
+.mock-card-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent)}
+.mock-bar-wrap{flex:1;background:var(--bg3);border-radius:4px;display:flex;align-items:flex-end;gap:3px;padding:4px;border:1px solid var(--line)}
+.mock-bar{background:var(--accent2);border-radius:2px;flex:1}
+.proj-body{padding:2rem}
+.proj-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.proj-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em}
+.proj-type{font-size:10px;color:var(--ink3);background:var(--bg3);border:1px solid var(--line);padding:2px 8px;border-radius:2px;letter-spacing:.05em;font-family:'IBM Plex Mono',monospace}
+.proj-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.25rem}
+.proj-title-ko{font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:300;color:var(--ink3);margin-bottom:1.25rem}
+.case-study{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.case-block{background:var(--bg3);border-radius:var(--r);padding:1.25rem;border-left:2px solid var(--line)}
+.case-block.problem{border-left-color:var(--red)}
+.case-block.solution{border-left-color:var(--amber)}
+.case-block.impact{border-left-color:var(--accent)}
+.case-block-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.case-block.problem .case-block-label{color:var(--red)}
+.case-block.solution .case-block-label{color:var(--amber)}
+.case-block.impact .case-block-label{color:var(--accent)}
+.case-block p{font-size:12.5px;color:var(--ink2);line-height:1.75}
+.case-block .ko{font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:var(--ink3);font-weight:300;margin-top:.4rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+
+/* ── EXPERIENCE TIMELINE ── */
+#experience{border-top:1px solid var(--line)}
+.exp-timeline{display:flex;flex-direction:column;gap:0}
+.exp-item{display:grid;grid-template-columns:140px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid var(--line);position:relative}
+.exp-item:last-child{border-bottom:none}
+.exp-left{position:relative;padding-top:3px}
+.exp-year{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em;margin-bottom:.25rem}
+.exp-year-ko{font-family:'Noto Sans KR',sans-serif;font-size:11px;color:var(--ink3);font-weight:300}
+.exp-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;margin-top:1rem}
+.exp-right{}
+.exp-role{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.2rem;color:var(--ink)}
+.exp-role-ko{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:.5rem}
+.exp-company{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.04em;margin-bottom:.85rem}
+.exp-desc{font-size:13.5px;color:var(--ink2);line-height:1.85;margin-bottom:.5rem}
+.exp-desc-ko{font-family:'Noto Sans KR',sans-serif;font-size:12.5px;color:var(--ink3);font-weight:300;line-height:1.85;margin-bottom:.85rem}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--bg2);border:1px solid var(--line);border-radius:8px;width:100%;max-width:820px;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .25s;position:relative}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-close{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:.75rem 1rem .5rem;background:var(--bg2)}
+.modal-close-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3);background:var(--bg3);border:1px solid var(--line);padding:.4rem 1rem;border-radius:2px;cursor:pointer;letter-spacing:.08em;transition:color .2s,border-color .2s}
+.modal-close-btn:hover{color:var(--ink);border-color:var(--ink3)}
+.modal-inner{padding:0 2rem 2rem}
+.modal-imgs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.modal-img-slot{background:var(--bg3);border:1px dashed var(--line);border-radius:4px;height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;transition:border-color .2s;overflow:hidden}
+.modal-img-slot:hover{border-color:var(--ink3)}
+.modal-img-slot img{width:100%;height:100%;object-fit:cover}
+.modal-img-slot.single{grid-column:1/-1;height:240px}
+.modal-img-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.08em;text-align:center}
+.modal-img-hint{font-size:11px;color:var(--ink3);opacity:.6}
+.modal-header{margin-bottom:1.5rem}
+.modal-proj-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:.5rem}
+.modal-proj-type{display:inline-block;font-size:10px;color:var(--ink3);background:var(--bg3);border:1px solid var(--line);padding:2px 8px;border-radius:2px;font-family:'IBM Plex Mono',monospace;margin-bottom:1rem}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.25rem}
+.modal-title-ko{font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--ink3);font-weight:300;margin-bottom:1.25rem}
+.modal-case{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.modal-desc-full{font-size:14px;color:var(--ink2);line-height:1.9;margin-bottom:1.25rem}
+.modal-desc-ko{font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--ink3);font-weight:300;line-height:1.9;margin-bottom:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+
+/* Small project grid */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.proj-card{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1.75rem;transition:border-color .25s,transform .25s;cursor:pointer}
+.proj-card:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.proj-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.proj-card-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em}
+.proj-card-type{font-size:10px;color:var(--ink3);font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+.proj-card-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.2rem}
+.proj-card-ko{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:.85rem}
+.proj-card-desc{font-size:12.5px;color:var(--ink2);line-height:1.75;margin-bottom:.5rem}
+.proj-card-desc-ko{font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:var(--ink3);line-height:1.75;font-weight:300;margin-bottom:1rem}
+
+/* ── TRAINING ── */
+#training{border-top:1px solid var(--line)}
+.training-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start}
+.training-text{}
+.training-heading{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
+.training-heading-ko{font-family:'Noto Sans KR',sans-serif;font-size:14px;color:var(--ink3);font-weight:300;margin-bottom:1.25rem}
+.training-desc{font-size:14px;color:var(--ink2);line-height:1.9;margin-bottom:1.5rem}
+.training-desc-ko{font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--ink3);line-height:1.9;font-weight:300}
+.training-quote{border-left:2px solid var(--accent);padding-left:1.25rem;margin-top:2rem}
+.training-quote p{font-size:14px;font-style:italic;color:var(--ink2);line-height:1.85}
+.training-quote-ko{font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--ink3);font-weight:300;margin-top:.5rem}
+.training-skills{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1.75rem}
+.training-skills-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem}
+.training-item{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--line)}
+.training-item:last-child{border-bottom:none}
+.training-item-name{font-size:13px;color:var(--ink)}
+.training-item-name-ko{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink3);font-weight:300}
+.training-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--accent3);color:var(--accent);border:1px solid var(--accent2);padding:2px 8px;border-radius:2px;letter-spacing:.05em}
+
+/* ── CONTACT ── */
+#contact{border-top:1px solid var(--line);padding-bottom:8rem}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-heading{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:.5rem}
+.contact-heading .g{color:var(--accent)}
+.contact-heading-ko{font-family:'Noto Sans KR',sans-serif;font-size:1rem;font-weight:300;color:var(--ink3);margin-bottom:2rem}
+.contact-desc{font-size:14px;color:var(--ink2);line-height:1.9;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:.75rem}
+.contact-link{display:flex;align-items:center;gap:.75rem;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2);text-decoration:none;transition:color .2s}
+.contact-link:hover{color:var(--accent)}
+.contact-link::before{content:'→';color:var(--accent);font-size:12px}
+.contact-right{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:2rem}
+.avail-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.avail-dot{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-right:.5rem;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.avail-status{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:1.5rem}
+.avail-list{display:flex;flex-direction:column;gap:.5rem}
+.avail-item{font-size:12.5px;color:var(--ink2);padding:.5rem 0;border-bottom:1px solid var(--line)}
+.avail-item:last-child{border-bottom:none}
+.avail-item-ko{font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:var(--ink3);font-weight:300}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--line);background:var(--bg2)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-content>*{animation:fadeUp .7s ease both}
+.hero-tag{animation-delay:.1s}
+.hero-name{animation-delay:.2s}
+.hero-ko{animation-delay:.3s}
+.hero-desc{animation-delay:.4s}
+.hero-stats{animation-delay:.5s}
+.hero-btns{animation-delay:.6s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  section{padding:4rem 1.5rem}
+  #hero{padding:7rem 1.5rem 4rem}
+  .hero-stats{gap:1.5rem}
+  .about-layout,.contact-layout{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:.5rem}
+  .exp-dot{display:none}
+  .case-study{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  #approach>div>div:last-child,#education>div{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left"></div>
+  <ul class="nav-links nav-center">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="cv.pdf" download class="theme-toggle" style="color:var(--accent);border-color:var(--accent2);text-decoration:none">↓ CV</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀ Light</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Data &amp; Reporting Analyst · BPO / Call Center · Seoul 서울</div>
+    <h1 class="hero-name">
+      Your<br>
+      <span class="accent">Name.</span>
+    </h1>
+    <p class="hero-ko">이름을 입력하세요 — 데이터로 운영을 바꿉니다</p>
+    <p class="hero-desc">10 years shaping operations from the inside. 5 years turning raw call center data into dashboards, reports, and tools teams depend on. From Power BI to building an interim CRM with Power Apps — fluent in English and Korean.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years in industry</div>
+        <div class="stat-ko">업계 경력</div>
+      </div>
+      <div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Years in data</div>
+        <div class="stat-ko">데이터 전문</div>
+      </div>
+      <div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Projects featured</div>
+        <div class="stat-ko">주요 프로젝트</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Power Platform tools</div>
+        <div class="stat-ko">Power 플랫폼</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</div>
+
+<!-- IMPACT BANNER -->
+<div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2)">
+  <div style="max-width:1100px;margin:0 auto;padding:3rem">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem">Impact · 성과</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem">
+      <div style="padding:1.5rem;background:var(--bg3);border-radius:var(--r);border:1px solid var(--line)">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:.6rem">X hrs</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:.3rem">saved per week on manual reporting</div>
+        <div style="font-size:11px;color:var(--ink3);font-family:'Noto Sans KR',sans-serif;font-weight:300">주간 수동 보고 절감 시간</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg3);border-radius:var(--r);border:1px solid var(--line)">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:.6rem">X+</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:.3rem">team members using tools I built</div>
+        <div style="font-size:11px;color:var(--ink3);font-family:'Noto Sans KR',sans-serif;font-weight:300">구축한 도구 사용 팀원 수</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg3);border-radius:var(--r);border:1px solid var(--line)">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:.6rem">1yr+</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:.3rem">interim CRM in production use</div>
+        <div style="font-size:11px;color:var(--ink3);font-family:'Noto Sans KR',sans-serif;font-weight:300">임시 CRM 실제 운영 기간</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg3);border-radius:var(--r);border:1px solid var(--line)">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:.6rem">3</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:.3rem">internal tools built from scratch</div>
+        <div style="font-size:11px;color:var(--ink3);font-family:'Noto Sans KR',sans-serif;font-weight:300">자체 개발 내부 도구</div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.05em">← replace X values with real numbers when available</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">
+    <span class="sec-num">// 01</span>
+    <h2 class="sec-title">About <span class="sec-title-ko">소개</span></h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-text">
+      <p>I started on the operations floor of a call center — which means I understand the <strong>problems before I see the data</strong>. Over time I moved into reporting and analytics, where I spent 5 years building the dashboards, scorecards, and reports that teams actually depend on.</p>
+      <p>Beyond reporting, I've built operational tools from scratch. When our CRM couldn't show caller history, I designed and built an <strong>interim CRM using Power Apps, Power Automate, and SharePoint</strong> — in 5 weeks. The whole department used it for over a year.</p>
+      <p>I actively use <strong>AI tools as part of my workflow</strong> — to move faster, write cleaner queries, and communicate findings more clearly. I think of them as a multiplier, not a shortcut.</p>
+      <p>I'm fluent in <strong>English and Korean</strong>, which means I can work across international teams, communicate findings clearly in both languages, and bridge gaps that monolingual analysts can't.</p>
+      <p style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-family:'Noto Sans KR',sans-serif;font-size:13.5px;color:var(--ink3);font-weight:300;line-height:2">콜센터 운영 현장에서 시작해 데이터가 실제로 어떤 문제를 해결하는지 직접 경험했습니다. CRM이 발신자 이력을 지원하지 않았을 때 Power Apps, Power Automate, SharePoint를 활용해 5주 만에 임시 CRM을 직접 구축했고, 부서 전체가 1년 이상 사용했습니다. AI 도구를 업무 가속화 및 품질 향상을 위한 수단으로 적극 활용하고 있으며, 영어와 한국어 모두 유창하게 구사합니다.</p>
+    </div>
+    <div class="about-right">
+      <div class="skill-group">
+        <div class="skill-group-label">Core tools · 주요 도구</div>
+        <div class="skill-tags">
+          <span class="itag hi"><i class="ti ti-chart-bar" aria-hidden="true"></i>Power BI</span>
+          <span class="itag hi"><i class="ti ti-app-window" aria-hidden="true"></i>Power Apps</span>
+          <span class="itag hi"><i class="ti ti-refresh" aria-hidden="true"></i>Power Automate</span>
+          <span class="itag hi"><i class="ti ti-share" aria-hidden="true"></i>SharePoint</span>
+          <span class="itag hi"><i class="ti ti-database" aria-hidden="true"></i>SQL</span>
+          <span class="itag hi"><i class="ti ti-table" aria-hidden="true"></i>Excel</span>
+          <span class="itag hi"><i class="ti ti-brand-google" aria-hidden="true"></i>Google Sheets</span>
+          <span class="itag hi"><i class="ti ti-cloud" aria-hidden="true"></i>AWS Cloud</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Specialties · 전문 분야</div>
+        <div class="skill-tags">
+          <span class="itag"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard Design</span>
+          <span class="itag"><i class="ti ti-report-analytics" aria-hidden="true"></i>KPI Reporting</span>
+          <span class="itag"><i class="ti ti-code" aria-hidden="true"></i>App Development</span>
+          <span class="itag"><i class="ti ti-settings-automation" aria-hidden="true"></i>Process Automation</span>
+          <span class="itag"><i class="ti ti-address-book" aria-hidden="true"></i>CRM Design</span>
+          <span class="itag"><i class="ti ti-chart-dots" aria-hidden="true"></i>Data Visualization</span>
+          <span class="itag"><i class="ti ti-headset" aria-hidden="true"></i>BPO Analytics</span>
+          <span class="itag"><i class="ti ti-presentation" aria-hidden="true"></i>Executive Reporting</span>
+          <span class="itag"><i class="ti ti-users" aria-hidden="true"></i>Workforce Data</span>
+          <span class="itag"><i class="ti ti-user-check" aria-hidden="true"></i>Client Reporting</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">AI Tools · AI 도구</div>
+        <div style="font-size:12px;color:var(--ink3);margin-bottom:.75rem;line-height:1.7">Used as productivity tools — for query writing, data summarization, report drafting, and problem-solving.<br><span style="font-family:'Noto Sans KR',sans-serif;font-weight:300">쿼리 작성, 데이터 요약, 보고서 초안, 문제 해결에 활용.</span></div>
+        <div class="skill-tags">
+          <span class="itag ai"><i class="ti ti-robot" aria-hidden="true"></i>ChatGPT</span>
+          <span class="itag ai"><i class="ti ti-robot" aria-hidden="true"></i>Microsoft Copilot</span>
+          <span class="itag ai"><i class="ti ti-robot" aria-hidden="true"></i>Gemini</span>
+          <span class="itag ai"><i class="ti ti-robot" aria-hidden="true"></i>Claude</span>
+        </div>
+      </div>
+      <div class="lang-badges">
+        <div class="lang-badge active">
+          <div class="lang-name">English</div>
+          <div class="lang-level"><span>Fluent / Native</span></div>
+          <div class="lang-ko">원어민 수준</div>
+        </div>
+        <div class="lang-badge active">
+          <div class="lang-name">한국어</div>
+          <div class="lang-level"><span>Fluent</span></div>
+          <div class="lang-ko">유창</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">
+    <span class="sec-num">// 02</span>
+    <h2 class="sec-title">Work <span class="sec-title-ko">프로젝트</span></h2>
+  </div>
+  <p class="projects-intro">Not just a list of jobs — each project below shows the problem, what I built, and what changed. Add your screenshots to the image areas to make this come alive.</p>
+
+  <!-- FEATURED PROJECT — CRM TOOL -->
+  <div class="project-featured">
+    <div class="proj-img">
+      <!-- Mock CRM app visualization -->
+      <div class="mock-dash">
+        <div class="mock-row">
+          <div class="mock-card" style="flex:2"><div class="mock-card-label">Caller ID</div><div class="mock-card-val" style="font-size:13px;margin-top:4px">+82 10-XXXX-XXXX</div></div>
+          <div class="mock-card"><div class="mock-card-label">Interactions</div><div class="mock-card-val">14</div></div>
+          <div class="mock-card"><div class="mock-card-label">Last Contact</div><div class="mock-card-val" style="font-size:12px;margin-top:4px">3d ago</div></div>
+        </div>
+        <div class="mock-row" style="flex:1;gap:.75rem">
+          <div style="flex:1;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:.6rem;display:flex;flex-direction:column;gap:5px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ink3);letter-spacing:.08em">CALL HISTORY</div>
+            <div style="height:6px;background:var(--accent2);border-radius:2px;width:85%"></div>
+            <div style="height:6px;background:var(--line);border-radius:2px;width:70%"></div>
+            <div style="height:6px;background:var(--line);border-radius:2px;width:90%"></div>
+            <div style="height:6px;background:var(--line);border-radius:2px;width:60%"></div>
+          </div>
+          <div style="flex:1;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:.6rem;display:flex;flex-direction:column;gap:5px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ink3);letter-spacing:.08em">CASE NOTES</div>
+            <div style="height:6px;background:var(--amber);opacity:.5;border-radius:2px;width:75%"></div>
+            <div style="height:6px;background:var(--line);border-radius:2px;width:55%"></div>
+            <div style="height:6px;background:var(--line);border-radius:2px;width:80%"></div>
+          </div>
+          <div style="flex:1;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:.6rem;display:flex;flex-direction:column;gap:5px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:.08em">AUTO-ROUTED</div>
+            <div style="font-size:10px;color:var(--ink3);margin-top:2px">Power Automate</div>
+            <div style="height:6px;background:var(--accent2);border-radius:2px;width:100%;margin-top:4px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-img-placeholder" style="position:relative;z-index:2">
+        <div class="proj-img-icon">[ DROP YOUR POWER APPS SCREENSHOT HERE ]</div>
+        <div class="proj-img-hint">replace with your actual app screenshot</div>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-meta">
+        <span class="proj-num">PROJECT 01 — FEATURED</span>
+        <span class="proj-type">Power Apps · Power Automate · SharePoint</span>
+      </div>
+      <h3 class="proj-title">Interim CRM Tool — Caller History System</h3>
+      <p class="proj-title-ko">임시 CRM 도구 — 발신자 이력 조회 시스템</p>
+      <div class="case-study">
+        <div class="case-block problem">
+          <div class="case-block-label">⬤ Problem</div>
+          <p>Agents had no way to view a caller's previous interaction history. Every call started from zero — leading to repeated questions, longer AHT, and frustrated customers. The existing CRM didn't support this, and a new one was still in discussion with IT.</p>
+          <p class="ko">상담사들이 발신자의 이전 상호작용 이력을 조회할 방법이 없었습니다. 매번 처음부터 시작해 AHT 증가, 고객 불만으로 이어졌습니다. IT팀과 새 CRM 도입을 논의 중이었지만 공백이 있었습니다.</p>
+        </div>
+        <div class="case-block solution">
+          <div class="case-block-label">⬤ What I Built</div>
+          <p>In 5 weeks, I designed and built an interim CRM using Power Apps as the front-end, SharePoint as the data layer, and Power Automate for routing and notifications. Agents could instantly pull up a caller's full history mid-call.</p>
+          <p class="ko">5주 만에 Power Apps(프론트엔드), SharePoint(데이터), Power Automate(라우팅·알림)를 활용한 임시 CRM을 설계·구축했습니다. 상담사가 통화 중 발신자 이력을 즉시 조회 가능.</p>
+        </div>
+        <div class="case-block impact">
+          <div class="case-block-label">⬤ Impact</div>
+          <p>Adopted by the whole department and used for over a year — well past its "interim" scope. Bridged a critical operational gap while IT evaluated long-term CRM solutions.</p>
+          <p class="ko">부서 전체가 도입해 1년 이상 사용 — '임시' 범위를 훌쩍 넘어섰습니다. IT팀이 장기 CRM을 검토하는 동안 핵심 운영 공백을 해소했습니다.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.25rem;border-left:2px solid var(--amber)">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:.1em;margin-bottom:.4rem">⬤ THE STORY BEHIND IT</p>
+        <p style="font-size:13px;color:var(--ink2);line-height:1.8">I wasn't asked to build this. I noticed the gap, raised it with IT, and while the long-term solution was being scoped — I built a working one. That's the kind of problem I look for.</p>
+        <p style="font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink3);font-weight:300;margin-top:.5rem;line-height:1.8">요청받은 게 아니었습니다. 공백을 발견하고 IT팀에 문제를 제기했으며, 장기 해결책이 논의되는 동안 직접 작동하는 솔루션을 만들었습니다.</p>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+        <div class="proj-tags">
+          <span class="tag hi">Power Apps</span>
+          <span class="tag hi">Power Automate</span>
+          <span class="tag hi">SharePoint</span>
+          <span class="tag">Microsoft 365</span>
+          <span class="tag">CRM Design</span>
+          <span class="tag">Process Automation</span>
+          <span class="tag">BPO Operations</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('crm')" style="white-space:nowrap;border:none">View Details →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECOND FEATURED — DASHBOARD -->
+  <div class="project-featured" style="margin-top:1.5rem">
+    <div class="proj-img">
+      <div class="mock-dash">
+        <div class="mock-row">
+          <div class="mock-card"><div class="mock-card-label">AHT</div><div class="mock-card-val">4:32</div></div>
+          <div class="mock-card"><div class="mock-card-label">CSAT</div><div class="mock-card-val">91%</div></div>
+          <div class="mock-card"><div class="mock-card-label">SLA</div><div class="mock-card-val">97%</div></div>
+          <div class="mock-card"><div class="mock-card-label">FCR</div><div class="mock-card-val">84%</div></div>
+        </div>
+        <div class="mock-row" style="flex:1">
+          <div class="mock-bar-wrap">
+            <div class="mock-bar" style="height:55%"></div><div class="mock-bar" style="height:72%"></div>
+            <div class="mock-bar" style="height:63%"></div><div class="mock-bar" style="height:88%"></div>
+            <div class="mock-bar" style="height:79%"></div><div class="mock-bar" style="height:91%"></div>
+            <div class="mock-bar" style="height:85%"></div>
+          </div>
+          <div class="mock-bar-wrap">
+            <div class="mock-bar" style="height:40%;background:#f5c842aa"></div>
+            <div class="mock-bar" style="height:65%;background:#f5c842aa"></div>
+            <div class="mock-bar" style="height:78%;background:#f5c842aa"></div>
+            <div class="mock-bar" style="height:60%;background:#f5c842aa"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-img-placeholder" style="position:relative;z-index:2">
+        <div class="proj-img-icon">[ DROP YOUR DASHBOARD SCREENSHOT HERE ]</div>
+        <div class="proj-img-hint">replace with your actual Power BI screenshot</div>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-meta">
+        <span class="proj-num">PROJECT 02</span>
+        <span class="proj-type">Power BI · SQL · Real-time</span>
+      </div>
+      <h3 class="proj-title">Call Center Operations Dashboard</h3>
+      <p class="proj-title-ko">콜센터 운영 대시보드</p>
+      <div class="case-study">
+        <div class="case-block problem">
+          <div class="case-block-label">⬤ Problem</div>
+          <p>Operations managers had no single view of daily KPIs. Reports were built manually in Excel, taking hours and arriving too late to act on.</p>
+          <p class="ko">운영 관리자들이 일일 KPI를 한눈에 볼 수 없었습니다. Excel로 수동 작성되어 수 시간이 소요됐습니다.</p>
+        </div>
+        <div class="case-block solution">
+          <div class="case-block-label">⬤ What I Built</div>
+          <p>A real-time Power BI dashboard pulling live data via SQL across multiple queues — AHT, CSAT, SLA, FCR, and agent-level performance in one view.</p>
+          <p class="ko">SQL로 실시간 데이터를 가져오는 Power BI 대시보드. 여러 대기열 KPI 및 상담사별 성과를 한 화면에.</p>
+        </div>
+        <div class="case-block impact">
+          <div class="case-block-label">⬤ Impact</div>
+          <p>Manual reporting eliminated. Managers could spot issues in real time. Used daily by the entire operations team.</p>
+          <p class="ko">수동 보고서 완전 제거. 실시간 문제 파악 가능. 운영팀 전체가 매일 사용.</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+        <div class="proj-tags">
+          <span class="tag hi">Power BI</span><span class="tag hi">SQL</span>
+          <span class="tag">Real-time</span><span class="tag">KPI Dashboard</span><span class="tag">Operations</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('dashboard')" style="white-space:nowrap;border:none">View Details →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT GRID -->
+  <div class="projects-grid">
+
+    <div class="proj-card" onclick="openModal('scorecard')">
+      <div class="proj-card-top">
+        <span class="proj-card-num">PROJECT 03</span>
+        <span class="proj-card-type">Excel · Weekly</span>
+      </div>
+      <h3 class="proj-card-title">Agent Performance Scorecard</h3>
+      <p class="proj-card-ko">상담사 성과 스코어카드</p>
+      <p class="proj-card-desc">Built a weekly scorecard tracking individual agent metrics — quality scores, attendance, AHT, and CSAT — used by team leaders for coaching and performance reviews.</p>
+      <p class="proj-card-desc-ko">팀 리더의 코칭 및 성과 검토에 활용. 품질 점수, 출근율, AHT, CSAT 등 개인 지표 추적.</p>
+      <div class="proj-tags"><span class="tag hi">Excel</span><span class="tag">Performance Mgmt</span><span class="tag">Weekly</span></div>
+    </div>
+
+    <div class="proj-card" onclick="openModal('sla')">
+      <div class="proj-card-top">
+        <span class="proj-card-num">PROJECT 04</span>
+        <span class="proj-card-type">Power BI · Client-facing</span>
+      </div>
+      <h3 class="proj-card-title">Client SLA Report</h3>
+      <p class="proj-card-ko">고객사 SLA 보고서</p>
+      <p class="proj-card-desc">Designed and maintained a client-facing report showing SLA compliance, volume trends, and escalation rates — formatted for non-technical stakeholders.</p>
+      <p class="proj-card-desc-ko">SLA 준수율, 물량 추세, 에스컬레이션 비율을 보여주는 고객사 보고서. 비기술 이해관계자용 형식.</p>
+      <div class="proj-tags"><span class="tag hi">Power BI</span><span class="tag">Client Reporting</span><span class="tag">SLA</span></div>
+    </div>
+
+    <div class="proj-card" onclick="openModal('executive')">
+      <div class="proj-card-top">
+        <span class="proj-card-num">PROJECT 05</span>
+        <span class="proj-card-type">Google Sheets · Executive</span>
+      </div>
+      <h3 class="proj-card-title">Executive Summary Dashboard</h3>
+      <p class="proj-card-ko">경영진 요약 대시보드</p>
+      <p class="proj-card-desc">Built a monthly executive summary compiling cross-team KPIs into a single clean view for senior management. Focused on trends, variance, and business-level insights rather than raw numbers.</p>
+      <p class="proj-card-desc-ko">크로스팀 KPI를 경영진용 단일 뷰로 통합한 월간 요약. 원시 수치보다 추세, 편차, 비즈니스 인사이트 중심.</p>
+      <div class="proj-tags"><span class="tag hi">Google Sheets</span><span class="tag">Executive Reporting</span><span class="tag">Monthly</span></div>
+    </div>
+
+    <div class="proj-card" onclick="openModal('wfm')">
+      <div class="proj-card-top">
+        <span class="proj-card-num">PROJECT 06</span>
+        <span class="proj-card-type">SQL · AWS · Workforce</span>
+      </div>
+      <h3 class="proj-card-title">Workforce & Scheduling Report</h3>
+      <p class="proj-card-ko">인력 및 스케줄링 보고서</p>
+      <p class="proj-card-desc">Developed reports for WFM — headcount, shrinkage, adherence, and forecast vs. actual comparisons — pulling from cloud data sources to give planners a reliable daily view.</p>
+      <p class="proj-card-desc-ko">WFM팀을 위한 헤드카운트, 감소율, 준수율, 예측 대비 실적 보고서. 클라우드 데이터 소스 연동.</p>
+      <div class="proj-tags"><span class="tag hi">SQL</span><span class="tag hi">AWS</span><span class="tag">WFM</span><span class="tag">Workforce</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">
+    <span class="sec-num">// 03</span>
+    <h2 class="sec-title">Experience <span class="sec-title-ko">경력</span></h2>
+  </div>
+
+  <div class="exp-timeline">
+
+    <!-- DATA ANALYST — ASURION KR -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Jan 2022 – Present</div>
+        <div class="exp-year-ko">현재 · Seoul, South Korea</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Data Analyst</div>
+        <div class="exp-role-ko">데이터 분석가</div>
+        <div class="exp-company">[Global Device Protection & Tech Support Co.] · Seoul, South Korea</div>
+        <p class="exp-desc">Built and maintained the full operational reporting suite — real-time Power BI dashboards, agent scorecards, client SLA reports, executive summaries, and WFM reports. Designed and built multiple internal tools including an interim CRM (Power Apps + Power Automate + SharePoint), an Ideabox tool, and a QA Form — all adopted department-wide. Liaised with APAC and US teams on process calibration.</p>
+        <p class="exp-desc-ko">실시간 Power BI 대시보드, 상담사 스코어카드, SLA 보고서, 경영진 요약, WFM 보고서 등 전체 운영 보고 시스템 구축·유지. 임시 CRM, Ideabox, QA Form 등 내부 도구 설계·구축. APAC 및 미국팀과 프로세스 조율.</p>
+        <div class="exp-tags">
+          <span class="tag hi">Power BI</span><span class="tag hi">SQL</span><span class="tag hi">Power Apps</span><span class="tag hi">Power Automate</span><span class="tag hi">SharePoint</span><span class="tag">AWS</span><span class="tag">Excel</span><span class="tag">Google Sheets</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEOPLE SERVICES COORDINATOR — ASURION PH -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Oct 2018 – Dec 2021</div>
+        <div class="exp-year-ko">Sta. Rosa, Laguna, PH → Seoul, KR</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">People Services Coordinator</div>
+        <div class="exp-role-ko">피플 서비스 코디네이터</div>
+        <div class="exp-company">[Global Device Protection & Tech Support Co.] · Sta. Rosa, Laguna, Philippines → Seoul, South Korea</div>
+        <p class="exp-desc">Prepared dashboards and reports to provide clear visibility into team performance. Collaborated with Operations, OSOT, and the Dev Team to ensure data integrity across systems. Developed internal tools to support business needs — including an interim CRM, Ideabox, and QA Form. Worked across multiple lines of business and coordinated with cross-regional People Services teams in APAC and the US on process calibration, policy alignment, and employee engagement initiatives. Planned, prepared, and arranged various company-wide events including team activities, recognition programs, and engagement campaigns. Transferred to the Korea office in December 2021.</p>
+        <p class="exp-desc-ko">팀 성과 가시화를 위한 대시보드 및 보고서 작성. 운영·OSOT·개발팀과 협력하여 시스템 데이터 무결성 확보. 임시 CRM, Ideabox, QA Form 등 내부 도구 개발. 여러 LOB에 걸쳐 APAC 및 미국 피플 서비스팀과 프로세스 조율, 정책 일관성 확보, 직원 참여 이니셔티브 협력. 팀 활동, 시상 프로그램, 참여 캠페인 등 전사 이벤트 기획·준비·운영. 2021년 12월 한국 오피스로 이전.</p>
+        <div class="exp-tags">
+          <span class="tag hi">Power BI</span><span class="tag hi">Excel</span><span class="tag">Cross-LOB</span><span class="tag">Cross-Region</span><span class="tag">Reporting</span><span class="tag">Tool Development</span><span class="tag">Event Planning</span><span class="tag">People Services</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TSR — ASURION / SOLUTO -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Jun 2018 – Sep 2018</div>
+        <div class="exp-year-ko">Sta. Rosa, Laguna, Philippines</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Technical Support Representative</div>
+        <div class="exp-role-ko">기술 지원 상담사</div>
+        <div class="exp-company">[Global Device Protection & Tech Support Co., PH Subsidiary] · Sta. Rosa, Laguna, Philippines</div>
+        <p class="exp-desc">Provided chat-based technical support for a device protection and tech assistance platform. Quickly transitioned into a reporting and coordination role within the same parent company.</p>
+        <p class="exp-desc-ko">디바이스 보호 및 기술 지원 플랫폼 채팅 기술 지원 제공. 이후 동일 모회사 내 보고·조율 역할로 빠르게 전환.</p>
+        <div class="exp-tags">
+          <span class="tag">Chat Support</span><span class="tag">Tech Support</span><span class="tag">Device Protection</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT TRAINER — TELETECH / LOGITECH -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Sep 2017 – May 2018</div>
+        <div class="exp-year-ko">Makati, Philippines</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Certified Product Trainer</div>
+        <div class="exp-role-ko">공인 제품 트레이너</div>
+        <div class="exp-company">[Global BPO — Consumer Electronics Client] · Makati, Philippines</div>
+        <p class="exp-desc">Certified trainer for a major consumer electronics brand covering peripherals, home security cameras, flight simulation controllers, and video collaboration products. Designed and delivered training programs supporting APAC (Korean, Chinese, Japanese, and English-speaking markets), Americas, and EMEA lines of business — adapting content and delivery style across languages and regions.</p>
+        <p class="exp-desc-ko">주변기기, 홈 보안 카메라, 비행 시뮬레이션 컨트롤러, 화상 협업 제품 공인 트레이너. APAC(한국어·중국어·일본어·영어권), 미주, EMEA LOB 대상 교육 프로그램 설계 및 진행.</p>
+        <div class="exp-tags">
+          <span class="tag hi">APAC</span><span class="tag hi">EMEA</span><span class="tag">Americas</span><span class="tag">Training Design</span><span class="tag">Multilingual</span><span class="tag">Consumer Electronics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TSR / TIER 2 / QA POC — TELETECH / LOGITECH -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Jan 2016 – Sep 2017</div>
+        <div class="exp-year-ko">Makati, Philippines</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Technical Support · Tier 2 · QA POC <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);border:1px solid var(--amber);padding:1px 7px;border-radius:2px;margin-left:.5rem;vertical-align:middle">Korean Team</span></div>
+        <div class="exp-role-ko">기술 지원 · 티어 2 · QA 담당자 — 한국어팀 전담</div>
+        <div class="exp-company">[Global BPO — Consumer Electronics Client, Korean LOB] · Makati, Philippines</div>
+        <p class="exp-desc">Handled phone, email, and chat support for the Korean line of business of a major consumer electronics brand. Simultaneously served as the Tier 2 escalation handler and the dedicated QA Point of Contact for the Korean team — a dual role created specifically because no one else on the QA team was Korean-fluent. Audited calls, scored agents against quality metrics, and delivered coaching and feedback, all while managing escalated cases.</p>
+        <p class="exp-desc-ko">소비자 전자제품 브랜드 한국어 LOB 전화·이메일·채팅 지원. QA팀에 한국어 구사자가 없어 한국어팀 전담 Tier 2 및 QA 담당자로 동시 역할 수행. 통화 모니터링, 품질 점수 평가, 코칭 및 피드백 제공.</p>
+        <div class="exp-tags">
+          <span class="tag hi">Korean · 한국어</span><span class="tag">Tier 2</span><span class="tag">QA Monitoring</span><span class="tag">Call Auditing</span><span class="tag">Agent Coaching</span><span class="tag">Consumer Electronics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE SECRETARY — ART IN ISLAND -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">May 2014 – Oct 2015</div>
+        <div class="exp-year-ko">Quezon City, Philippines</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Executive Secretary</div>
+        <div class="exp-role-ko">임원 비서 / 운영 총괄</div>
+        <div class="exp-company">[Interactive Art Museum] · Quezon City, Philippines</div>
+        <p class="exp-desc">Served as Korean–English interpreter and translator for the CEO and directors, while simultaneously overseeing day-to-day museum operations. Responsibilities spanned the full operational scope: scheduling, media and public relations, marketing, sales coordination, HR administration (payroll, contracts, personnel files, performance monitoring, staff training), and government compliance including business permits and employee benefits reporting (SSS, PHIC, HDMF).</p>
+        <p class="exp-desc-ko">CEO 및 이사진 한영·영한 통역·번역을 담당하며 박물관 일상 운영 총괄. 일정 관리, 미디어·홍보, 마케팅, 영업 조율, HR(급여·계약·인사 파일·성과 모니터링·직원 교육), 정부 규정 준수(사업자 허가, 직원 복리후생 신고) 등 전 분야 담당.</p>
+        <div class="exp-tags">
+          <span class="tag hi">Korean · 한국어</span><span class="tag">Operations</span><span class="tag">HR & Payroll</span><span class="tag">Media Relations</span><span class="tag">Marketing</span><span class="tag">Government Compliance</span><span class="tag">Translation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROVISIONING — CONVERGYS / GM ONSTAR -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-year">Mar 2013 – Apr 2014</div>
+        <div class="exp-year-ko">Makati, Philippines</div>
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Senior Customer Service Associate — Provisioning</div>
+        <div class="exp-role-ko">시니어 고객 서비스 — 프로비저닝</div>
+        <div class="exp-company">[Global BPO — Automotive Tech & Telematics Client] · Makati, Philippines</div>
+        <p class="exp-desc">Handled registration, provisioning, and activation of in-car telematics and connected vehicle technology, as well as landline support. Managed end-to-end activation workflows — verifying eligibility, activating services, and resolving issues for customers of a major US automotive technology platform.</p>
+        <p class="exp-desc-ko">차량 내 텔레매틱스 및 커넥티드 카 기술 등록·프로비저닝·활성화 및 유선 지원 처리. 자격 확인, 서비스 활성화, 문제 해결 등 엔드투엔드 활성화 워크플로 관리.</p>
+        <div class="exp-tags">
+          <span class="tag">Provisioning</span><span class="tag">Telematics</span><span class="tag">Automotive Tech</span><span class="tag">BPO</span><span class="tag">Senior Associate</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section id="approach" style="border-top:1px solid var(--line)">
+  <div class="sec-label">
+    <span class="sec-num">// 04</span>
+    <h2 class="sec-title">How I Work <span class="sec-title-ko">업무 방식</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start">
+    <div>
+      <p style="font-size:15px;color:var(--ink2);line-height:1.95;margin-bottom:1.25rem">I tend to start with the question behind the question. Before building any report or dashboard, I want to understand what decision it's supposed to support — because a metric that doesn't connect to a decision is just noise.</p>
+      <p style="font-size:15px;color:var(--ink2);line-height:1.95;margin-bottom:1.25rem">I'm comfortable working across functions — with operations teams, IT, management, and clients — and I think the ability to translate between technical and non-technical audiences is just as important as the technical skill itself.</p>
+      <p style="font-size:15px;color:var(--ink2);line-height:1.95">When I see a gap, I don't wait for someone to assign it to me. I scope it, propose a solution, and build it — the interim CRM being the clearest example of that.</p>
+      <p style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-family:'Noto Sans KR',sans-serif;font-size:13.5px;color:var(--ink3);font-weight:300;line-height:2">질문 뒤에 있는 진짜 질문에서 시작합니다. 보고서나 대시보드를 만들기 전에 어떤 의사결정을 지원해야 하는지를 먼저 파악합니다. 운영팀, IT, 경영진, 고객사 등 다양한 부서와 협업하는 데 익숙하며, 기술적 내용을 비기술적 언어로 전달하는 능력이 기술력 자체만큼 중요하다고 생각합니다. 공백을 발견하면 직접 범위를 정하고 해결책을 제안하고 만듭니다.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div style="background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);padding:1.25rem">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:.5rem">PRINCIPLE 01</div>
+        <div style="font-size:13.5px;color:var(--ink);font-weight:500;margin-bottom:.3rem">Data should reduce uncertainty, not create it</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.75">Every output I build is designed to make a decision easier, not to show off what's technically possible.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--r);padding:1.25rem">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:.1em;margin-bottom:.5rem">PRINCIPLE 02</div>
+        <div style="font-size:13.5px;color:var(--ink);font-weight:500;margin-bottom:.3rem">The best tool is the one people actually use</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.75">I've seen great dashboards collect dust because no one understood them. Adoption matters as much as accuracy.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);padding:1.25rem">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:.5rem">PRINCIPLE 03</div>
+        <div style="font-size:13.5px;color:var(--ink);font-weight:500;margin-bottom:.3rem">If the gap exists, fill it</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.75">I don't wait to be asked. When I see something broken or missing, I scope a solution and build it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="border-top:1px solid var(--line)">
+  <div class="sec-label">
+    <span class="sec-num">// 05</span>
+    <h2 class="sec-title">Education <span class="sec-title-ko">학력</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--line)">Tertiary · 대학교</div>
+      <div style="margin-bottom:1.5rem">
+        <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.35rem">Gyeongnam Geochang College</div>
+        <div style="font-size:12.5px;color:var(--ink2);margin-bottom:.2rem">Computer Information Systems <span style="color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px;margin-left:.5rem">2010–2012</span></div>
+        <div style="font-size:12.5px;color:var(--ink2);margin-bottom:.2rem">Korean Language <span style="color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px;margin-left:.5rem">2009–2010</span></div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:.3rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">Geochang, South Korea</div>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.35rem">La Consolacion College Manila</div>
+        <div style="font-size:12.5px;color:var(--ink2);margin-bottom:.2rem">BS Information Technology <span style="color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px;margin-left:.5rem">2008–2009</span></div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:.3rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">Manila, Philippines</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--line)">Secondary & Primary · 중·초등학교</div>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div>
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.2rem">Carlos L. Albert High School</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">2005–2008 · Philippines</div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.2rem">Ramon Magsaysay (Cubao) High School</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">2004–2005 · Philippines</div>
+        </div>
+        <div style="padding-top:1rem;border-top:1px solid var(--line)">
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.2rem">Aurora A. Quezon Elementary School</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">2001–2004 · Philippines</div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.2rem">Trinity University of Asia</div>
+          <div style="font-size:12px;color:var(--ink3);margin-bottom:.2rem">Former Trinity College of Quezon City</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em">1998–2001 · Philippines</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label">
+    <span class="sec-num">// 06</span>
+    <h2 class="sec-title">Contact <span class="sec-title-ko">연락처</span></h2>
+  </div>
+  <div class="contact-layout">
+    <div>
+      <h2 class="contact-heading">Let's<br><span class="g">get in touch.</span></h2>
+      <p class="contact-heading-ko">언제든지 연락주세요</p>
+      <p class="contact-desc">Feel free to reach out via LinkedIn or email. I'm happy to connect, answer questions, or have a conversation.</p>
+      <p class="contact-desc" style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:300;margin-top:.75rem">LinkedIn 또는 이메일로 편하게 연락주세요. 질문이나 대화를 환영합니다.</p>
+      <div class="contact-links" style="margin-top:2rem">
+        <a href="https://linkedin.com/in/your-profile" class="contact-link" target="_blank">LinkedIn ↗</a>
+        <a href="mailto:your@email.com" class="contact-link">your@email.com ↗</a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="avail-label">Based in · 위치</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.5rem">Seoul, South Korea · 서울, 대한민국</div>
+      <div class="avail-label" style="margin-top:1.5rem">Languages · 언어</div>
+      <div class="avail-list">
+        <div class="avail-item">
+          English
+          <div class="avail-item-ko">Fluent · 원어민 수준</div>
+        </div>
+        <div class="avail-item">
+          한국어
+          <div class="avail-item-ko">Fluent · 유창</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="max-width:1100px;margin:0 auto;padding:3rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:.3rem">Your Full Name</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em">Data &amp; Reporting Analyst · Seoul, South Korea</div>
+      </div>
+      <a href="cv.pdf" download style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);border:1px solid var(--accent2);padding:6px 16px;border-radius:20px;text-decoration:none;letter-spacing:.06em;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">↓ Download CV</a>
+    </div>
+    <div style="padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.05em">EN · 한국어 · Bilingual Portfolio</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.05em">Built with HTML · GitHub Pages</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MODAL OVERLAY ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-close">
+      <button class="modal-close-btn" onclick="closeModal()">✕ CLOSE</button>
+    </div>
+    <div class="modal-inner" id="modalInner"></div>
+  </div>
+</div>
+
+<script>
+// ── THEME TOGGLE ──
+function toggleTheme(){
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const isLight = html.classList.toggle('light');
+  btn.textContent = isLight ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+// restore saved preference
+(function(){
+  const saved = localStorage.getItem('theme');
+  if(saved === 'light'){
+    document.documentElement.classList.add('light');
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const btn = document.getElementById('themeBtn');
+      if(btn) btn.textContent = '☾ Dark';
+    });
+  }
+})();
+</script>
+
+<script>
+const projects = {
+  crm: {
+    num: 'PROJECT 01 — FEATURED',
+    type: 'Power Apps · Power Automate · SharePoint',
+    title: 'Interim CRM Tool — Caller History System',
+    ko: '임시 CRM 도구 — 발신자 이력 조회 시스템',
+    imgs: 2,
+    imgLabel: ['Power Apps front-end — caller lookup screen','SharePoint data layer / call log view'],
+    desc: `I built this tool because agents had no way to see a caller's previous interaction history. Every single call started from scratch — agents had to re-ask the same questions, customers got frustrated, and AHT crept up as a result. The existing CRM simply didn't support historical lookup, and while IT and management were in discussions about a long-term solution, there was a real operational gap.\n\nI raised the problem directly with IT, proposed a low-code solution using the Microsoft 365 tools we already had, and got informal sign-off to build a working prototype. Over 5 weeks — alongside my regular reporting responsibilities — I designed the app in Power Apps, set up SharePoint as the backend data store for call logs and interaction records, and used Power Automate to handle routing logic and notifications.\n\nThe whole department started using it almost immediately. What was supposed to be a temporary bridge ended up running in production for over a year.`,
+    descKo: `상담사들이 발신자의 이전 상호작용 이력을 조회할 방법이 없어 매번 처음부터 시작해야 했고, 이는 AHT 증가와 고객 불만으로 이어졌습니다. IT팀과 장기 해결책을 논의하는 동안 운영 공백이 있었고, 저는 이 문제를 직접 제기해 비공식 승인을 받았습니다.\n\n5주간 기존 업무와 병행하며 Power Apps(프론트엔드), SharePoint(데이터 저장), Power Automate(라우팅·알림)를 활용해 임시 CRM을 구축했습니다. 부서 전체가 즉시 사용하기 시작했고, 임시 목적으로 만들었지만 1년 이상 운영됐습니다.',`,
+    tags: ['Power Apps','Power Automate','SharePoint','Microsoft 365','CRM Design','Process Automation','BPO Operations']
+  },
+  dashboard: {
+    num: 'PROJECT 02',
+    type: 'Power BI · SQL · Real-time',
+    title: 'Call Center Operations Dashboard',
+    ko: '콜센터 운영 대시보드',
+    imgs: 2,
+    imgLabel: ['Main KPI overview — AHT, CSAT, SLA, FCR','Agent-level performance drill-down view'],
+    desc: `Operations managers were working blind. KPI reports were being built manually in Excel every morning — which meant by the time the numbers landed in someone's inbox, the day was already half over and any issues were already compounding.\n\nI built a real-time Power BI dashboard connected to live data via SQL, covering all the key metrics across multiple queues: AHT, CSAT, SLA adherence, FCR, and agent-level performance. Managers could now open one screen at the start of their shift and immediately see where the floor stood — no waiting, no manual compiling.\n\nThis became the operational default for the team. The manual Excel process was retired, and managers gained the ability to catch and respond to issues in real time rather than the following morning.`,
+    descKo: `운영 관리자들은 매일 아침 수동으로 Excel 보고서를 작성했고, 데이터가 도착할 때쯤엔 이미 문제가 심화된 후였습니다. SQL을 통해 실시간 데이터를 가져오는 Power BI 대시보드를 구축해 AHT, CSAT, SLA, FCR 및 상담사별 성과를 한 화면에서 즉시 확인할 수 있게 했습니다. 수동 Excel 프로세스는 폐지됐고, 관리자들은 실시간으로 문제를 파악하고 대응할 수 있게 됐습니다.`,
+    tags: ['Power BI','SQL','Real-time Data','KPI Dashboard','Multi-queue','AHT','CSAT','SLA','Operations']
+  },
+  scorecard: {
+    num: 'PROJECT 03',
+    type: 'Excel · Weekly',
+    title: 'Agent Performance Scorecard',
+    ko: '상담사 성과 스코어카드',
+    imgs: 2,
+    imgLabel: ['Weekly scorecard — individual agent view','Team summary — comparative performance'],
+    desc: `Team leaders needed a consistent, fair way to evaluate individual agent performance and use it for coaching conversations. The existing process was ad-hoc — different team leaders tracked different things, making it hard to compare across teams or identify systemic issues.\n\nI built a standardized weekly scorecard in Excel covering quality scores, attendance and adherence, AHT, CSAT, and a few other operational metrics. Each week the data was pulled and the scorecard updated, giving team leaders a ready-made conversation tool for 1-on-1 coaching sessions and performance reviews.\n\nThe consistency it brought made coaching conversations more productive — leaders had objective data to point to rather than relying on memory or selective observation.`,
+    descKo: `팀 리더들이 개별 상담사 성과를 일관되고 공정하게 평가할 수 있는 도구가 필요했습니다. 품질 점수, 출근율, AHT, CSAT 등을 포함한 표준화된 주간 스코어카드를 Excel로 구축했습니다. 매주 데이터가 업데이트되어 팀 리더들의 1:1 코칭 및 성과 검토에 활용됐으며, 객관적 데이터를 기반으로 더 생산적인 코칭 대화가 가능해졌습니다.`,
+    tags: ['Excel','Performance Management','Weekly Reporting','Agent Metrics','Coaching','Quality Scores']
+  },
+  sla: {
+    num: 'PROJECT 04',
+    type: 'Power BI · Client-facing',
+    title: 'Client SLA Report',
+    ko: '고객사 SLA 보고서',
+    imgs: 1,
+    imgLabel: ['Client-facing SLA compliance report'],
+    desc: `Client-facing reporting has a completely different design challenge than internal reporting — the people reading it aren't operations staff, they're account managers, procurement leads, and executives at client organizations who want to know one thing: are we getting what we're paying for?\n\nI designed and maintained a Power BI report formatted specifically for non-technical stakeholders. It showed SLA compliance rates, volume trends over time, escalation rates, and any notable incidents — all presented cleanly without jargon, with context provided for any numbers that needed explaining.\n\nThe formatting discipline here was as important as the data itself. A cluttered or confusing client report damages trust. A clean, honest one builds it.`,
+    descKo: `클라이언트 대상 보고서는 내부 보고서와 완전히 다른 설계 과제가 있습니다. 읽는 사람들은 운영 직원이 아니라 클라이언트 측 임원과 담당자들입니다. 비기술 이해관계자를 위해 SLA 준수율, 물량 추세, 에스컬레이션 비율을 전문 용어 없이 깔끔하게 표현한 Power BI 보고서를 설계·유지했습니다. 보고서 형식의 명확성이 데이터 자체만큼 중요합니다.`,
+    tags: ['Power BI','Client Reporting','SLA Compliance','Stakeholder Communication','BPO']
+  },
+  executive: {
+    num: 'PROJECT 05',
+    type: 'Google Sheets · Executive',
+    title: 'Executive Summary Dashboard',
+    ko: '경영진 요약 대시보드',
+    imgs: 1,
+    imgLabel: ['Monthly executive summary — cross-team KPI overview'],
+    desc: `Senior management doesn't need raw numbers — they need to know if the business is moving in the right direction, where it isn't, and why. This monthly executive summary was built to answer exactly those three questions.\n\nI compiled cross-team KPIs into a single clean Google Sheets dashboard, with a deliberate focus on trends and variance rather than point-in-time figures. A number on its own means nothing — a number compared to last month, last quarter, and target tells a story.\n\nI also added brief written commentary to flag anything that needed context, turning what could have been a passive data dump into an active briefing document. Senior leadership used this as their primary monthly read-in on operations performance.`,
+    descKo: `경영진은 원시 수치가 아니라 비즈니스가 올바른 방향으로 가고 있는지, 어디서 문제가 있는지, 왜 그런지를 알고 싶어합니다. 크로스팀 KPI를 단일 Google Sheets 대시보드로 통합하고, 시점 수치보다 추세와 편차에 집중했습니다. 수치에 맥락을 더하는 간략한 해설을 추가해 수동적인 데이터 보고가 아닌 능동적인 브리핑 문서로 만들었습니다.`,
+    tags: ['Google Sheets','Executive Reporting','Monthly','Trend Analysis','KPI','Commentary']
+  },
+  wfm: {
+    num: 'PROJECT 06',
+    type: 'SQL · AWS · Workforce',
+    title: 'Workforce & Scheduling Report',
+    ko: '인력 및 스케줄링 보고서',
+    imgs: 1,
+    imgLabel: ['WFM daily report — headcount, shrinkage & adherence'],
+    desc: `Workforce management teams live and die by data accuracy. Headcount, shrinkage rates, schedule adherence, and forecast-vs-actual gaps are the metrics that determine staffing decisions, shift allocations, and cost projections — getting them wrong has real operational consequences.\n\nI developed a suite of WFM-focused reports pulling from cloud data sources on AWS, processed via SQL queries, and delivered as a daily view planners could rely on. The reports covered headcount by queue, shrinkage breakdowns by reason code, adherence rates, and a forecast-vs-actual comparison that highlighted where planning assumptions were drifting from reality.\n\nBuilding this required close collaboration with the WFM team to understand exactly what decisions they were making with the data — so I could make sure the right numbers were surfaced in the right format at the right time.`,
+    descKo: `WFM팀은 데이터 정확성에 의존합니다. AWS 클라우드 데이터 소스에서 SQL 쿼리를 통해 데이터를 가져와 헤드카운트, 감소율(사유 코드별), 준수율, 예측 대비 실적을 포함한 일일 WFM 보고서를 제공했습니다. WFM팀과 긴밀하게 협력해 그들이 데이터로 어떤 의사결정을 내리는지 파악하고, 적합한 수치가 적절한 형식으로 제때 제공되도록 했습니다.`,
+    tags: ['SQL','AWS','Workforce Management','WFM','Headcount','Shrinkage','Adherence','Forecasting']
+  }
+};
+
+function buildImgSlots(p) {
+  if (p.imgs === 1) {
+    return `<div class="modal-imgs" style="grid-template-columns:1fr">
+      <div class="modal-img-slot single">
+        <div class="modal-img-label">${p.imgLabel[0]}</div>
+        <div class="modal-img-hint">drop your screenshot here — see guide below</div>
+      </div>
+    </div>`;
+  }
+  return `<div class="modal-imgs">
+    ${p.imgLabel.map(l => `<div class="modal-img-slot">
+      <div class="modal-img-label">${l}</div>
+      <div class="modal-img-hint">drop screenshot here</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function buildTags(tags) {
+  return tags.map(t => `<span class="tag hi">${t}</span>`).join('');
+}
+
+function buildDesc(text) {
+  return text.split('\n\n').map(p => `<p class="modal-desc-full">${p}</p>`).join('');
+}
+
+function openModal(id) {
+  const p = projects[id];
+  if (!p) return;
+  document.getElementById('modalInner').innerHTML = `
+    <div class="modal-header">
+      <div class="modal-proj-num">${p.num}</div>
+      <span class="modal-proj-type">${p.type}</span>
+      <h2 class="modal-title">${p.title}</h2>
+      <p class="modal-title-ko">${p.ko}</p>
+    </div>
+    ${buildImgSlots(p)}
+    ${buildDesc(p.desc)}
+    <div class="modal-desc-ko">${p.descKo}</div>
+    <div class="modal-tags">${buildTags(p.tags)}</div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);letter-spacing:.06em">TO ADD YOUR SCREENSHOT: upload image to GitHub alongside index.html, then replace the placeholder div with: &lt;img src="filename.jpg" style="width:100%;height:100%;object-fit:cover"&gt;</p>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
